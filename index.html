@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goregaonkar Traders - Share Market Classes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #0f0f0f;
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ff88;
+            text-shadow: 0 0 10px #00ff88;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #00ff88;
+            text-shadow: 0 0 10px #00ff88;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #0f0f0f 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 60px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 100, 80, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: 0;
+            right: 0;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+        }
+
+        .hero-title {
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 50px rgba(0, 255, 136, 0.3);
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: #00ff88;
+            margin-bottom: 40px;
+            animation: slideUp 0.8s ease 0.2s backwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 50px;
+            animation: slideUp 0.8s ease 0.4s backwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 50px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+            animation: slideUp 0.8s ease 0.6s backwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.8);
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 50px;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #16213e);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            color: #fff;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 255, 136, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .feature-title {
+            font-size: 24px;
+            color: #00ff88;
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* Classes Section */
+        .classes {
+            padding: 100px 50px;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .class-card {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            padding: 40px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .class-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .class-level {
+            display: inline-block;
+            background: #00ff88;
+            color: #000;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .class-name {
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .class-details {
+            color: #aaa;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .class-price {
+            font-size: 32px;
+            color: #00ff88;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .enroll-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .enroll-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .enrollment {
+            padding: 100px 50px;
+            background: linear-gradient(180deg, #16213e 0%, #0f0f0f 100%);
+        }
+
+        .enrollment-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .enrollment-box,
+        .payment-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .enroll-form label {
+            display: block;
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 8px;
+            margin-top: 20px;
+        }
+
+        .enroll-form input,
+        .enroll-form textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            margin-top: 6px;
+        }
+
+        .enroll-form input:focus,
+        .enroll-form textarea:focus {
+            border-color: #00ff88;
+            box-shadow: 0 0 0 4px rgba(0, 255, 136, 0.08);
+        }
+
+        .payment-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .form-button {
+            display: inline-block;
+            padding: 14px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #000;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .form-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 255, 136, 0.25);
+        }
+
+        .form-note {
+            color: #888;
+            margin-top: 16px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .payment-info p {
+            margin: 0 0 12px;
+        }
+
+        .selected-class-text {
+            color: #00ff88;
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 968px) {
+            .enrollment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 50px;
+            background: linear-gradient(180deg, #16213e 0%, #1a1a2e 100%);
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-content h2 {
+            font-size: 42px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            color: #aaa;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .about-features {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #aaa;
+        }
+
+        .about-feature::before {
+            content: '✓';
+            color: #00ff88;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .about-logo {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.2);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0%, 100% { transform: rotateY(0deg); }
+            50% { transform: rotateY(180deg); }
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 50px;
+            background: #0f0f0f;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid #00ff88;
+        }
+
+        .rating {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .testimonial-text {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .testimonial-role {
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 50px;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .contact-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .contact-box h3 {
+            color: #00ff88;
+            margin-bottom: 15px;
+        }
+
+        .contact-box p {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            color: #aaa;
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .features, .classes, .contact {
+                padding: 60px 20px;
+            }
+
+            .about {
+                padding: 60px 20px;
+                flex-direction: column;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-text">GOREGAONKAR TRADERS</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#classes">Classes</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#enroll">Enroll</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">GOREGAONKAR TRADERS</h1>
+            <p class="hero-subtitle">Master the Stock Market with Expert Trading Classes</p>
+            <p class="hero-description">
+                Learn strategies, techniques, and secrets from professional traders. Transform your financial future with our comprehensive trading education.
+            </p>
+            <button class="cta-button" onclick="scrollToSection('classes')">Explore Classes Now</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Why Choose Us?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Expert Instructors</h3>
+                <p class="feature-description">Learn from professional traders with 10+ years of market experience and proven track records.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💡</div>
+                <h3 class="feature-title">Practical Knowledge</h3>
+                <p class="feature-description">Real-world strategies and live market analysis sessions to apply knowledge immediately.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎓</div>
+                <h3 class="feature-title">Certification</h3>
+                <p class="feature-description">Get industry-recognized certification upon completion of your trading course.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
+                <h3 class="feature-title">Online & Offline</h3>
+                <p class="feature-description">Flexible learning options - attend classes online from anywhere or in person at our center.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3 class="feature-title">Live Trading Sessions</h3>
+                <p class="feature-description">Weekly live market analysis and trading sessions to practice your strategies.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3 class="feature-title">Lifetime Support</h3>
+                <p class="feature-description">24/7 support from our team and lifetime access to course materials and updates.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section class="classes" id="classes">
+        <h2 class="section-title">Our Trading Classes</h2>
+        <div class="classes-grid">
+            <div class="class-card">
+                <span class="class-level">BEGINNER</span>
+                <h3 class="class-name">Stock Basics</h3>
+                <p class="class-details">
+                    Perfect for beginners. Learn fundamentals of stock market, how to open a demat account, reading charts, and basic analysis.
+                </p>
+                <div class="class-price">₹5,999</div>
+                <p style="color: #888; margin-bottom: 20px;">4 weeks | 8 sessions</p>
+                <button class="enroll-btn">Enroll Now</button>
+            </div>
+
+            <div class="class-card">
+                <span class="class-level">INTERMEDIATE</span>
+                <h3 class="class-name">Technical Analysis</h3>
+                <p class="class-details">
+                    Master technical analysis, indicators, support & resistance, candlestick patterns, and trading systems to identify profitable trades.
+                </p>
+                <div class="class-price">₹9,999</div>
+                <p style="color: #888; margin-bottom: 20px;">6 weeks | 12 sessions</p>
+                <button class="enroll-btn">Enroll Now</button>
+            </div>
+
+            <div class="class-card">
+                <span class="class-level">ADVANCED</span>
+                <h3 class="class-name">Advanced Trading</h3>
+                <p class="class-details">
+                    Learn options trading, future contracts, risk management, portfolio management, and advanced trading strategies with live trading.
+                </p>
+                <div class="class-price">₹15,999</div>
+                <p style="color: #888; margin-bottom: 20px;">8 weeks | 16 sessions</p>
+                <button class="enroll-btn">Enroll Now</button>
+            </div>
+
+            <div class="class-card">
+                <span class="class-level">PROFESSIONAL</span>
+                <h3 class="class-name">1-on-1 Mentorship</h3>
+                <p class="class-details">
+                    Personalized one-on-one training sessions with our expert traders. Customize your learning path and get dedicated support.
+                </p>
+                <div class="class-price">₹25,999</div>
+                <p style="color: #888; margin-bottom: 20px;">Flexible | Personalized</p>
+                <button class="enroll-btn">Enroll Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2>About Goregaonkar Traders</h2>
+            <p>
+                Goregaonkar Traders is a leading stock market education platform dedicated to empowering individuals with the knowledge and skills needed to become successful traders and investors. With a team of experienced professionals and proven track record, we've helped thousands of students achieve their financial goals.
+            </p>
+            <p>
+                Our mission is to democratize financial education and make professional trading knowledge accessible to everyone, regardless of their background or experience level.
+            </p>
+            <div class="about-features">
+                <div class="about-feature">Expert guidance from market professionals</div>
+                <div class="about-feature">Comprehensive curriculum covering all aspects</div>
+                <div class="about-feature">Real-world practice with live markets</div>
+                <div class="about-feature">Lifetime access and support</div>
+                <div class="about-feature">Job placement assistance</div>
+            </div>
+        </div>
+        <div class="about-logo">
+            <img src="https://image2url.com/r2/default/images/1773756318959-a39549dd-2536-46f6-b772-80752a584ed3.jpeg" alt="Trading Logo" class="logo-image">
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <h2 class="section-title">Student Success Stories</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"The course completely changed my understanding of the stock market. I went from a complete beginner to making profitable trades within 3 months!"</p>
+                <p class="testimonial-author">Rajesh Kumar</p>
+                <p class="testimonial-role">Student, Stock Basics Course</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"The mentorship program was invaluable. Having one-on-one guidance from experienced traders accelerated my learning curve significantly."</p>
+                <p class="testimonial-author">Priya Sharma</p>
+                <p class="testimonial-role">Student, 1-on-1 Mentorship</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Best investment I made for my future. The practical knowledge and live trading sessions gave me confidence to trade with real money."</p>
+                <p class="testimonial-author">Amit Patel</p>
+                <p class="testimonial-role">Student, Advanced Trading Course</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-content">
+            <h2 class="section-title">Get In Touch</h2>
+            <p style="color: #aaa; margin-top: 20px; margin-bottom: 40px;">
+                Have questions? Want to enroll? Reach out to us and start your trading journey today!
+            </p>
+            <div class="contact-grid">
+                <div class="contact-box">
+                    <h3>📞 Phone</h3>
+                    <p>saurabh:-8149642827<br>abhishek:-8459819629</p>
+                </div>
+                <div class="contact-box">
+                    <h3>📧 Email</h3>
+                    <p>hello@goregaonkartraders.com<br>support@goregaonkartraders.com</p>
+                </div>
+                <div class="contact-box">
+                    <h3>📍 Location</h3>
+                    <p>shrivardhan,<br>Maharashtra, India</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enrollment Section -->
+    <section class="enrollment" id="enroll">
+        <h2 class="section-title">Enroll & Pay</h2>
+        <div class="enrollment-grid">
+            <div class="enrollment-box">
+                <h3>Complete Your Enrollment</h3>
+                <p style="color: #ccc; margin-bottom: 20px;">Fill the form below and choose a payment method to confirm your seat.</p>
+                <p class="selected-class-text">Selected Class: <span class="selected-class">None</span></p>
+                <form id="enroll-form" class="enroll-form" action="https://formsubmit.co/YOUR_EMAIL" method="POST">
+                    <input type="hidden" name="selected_class" id="selectedClassInput" value="">
+                    <label for="studentName">Name</label>
+                    <input type="text" id="studentName" name="name" placeholder="Your full name" required>
+                    <label for="studentEmail">Email</label>
+                    <input type="email" id="studentEmail" name="email" placeholder="you@example.com" required>
+                    <label for="studentPhone">Phone</label>
+                    <input type="tel" id="studentPhone" name="phone" placeholder="+91 81234 56789" required>
+                    <label for="studentMessage">Message</label>
+                    <textarea id="studentMessage" name="message" rows="4" placeholder="Tell us your goals"></textarea>
+                    <button type="submit" class="enroll-btn">Submit Enrollment Request</button>
+                    <p class="form-note">Replace the form action URL with your FormSubmit or Formspree endpoint before publishing.</p>
+                </form>
+            </div>
+            <div class="payment-box">
+                <h3>Secure Payment Options</h3>
+                <p style="color: #ccc; margin-bottom: 20px;">We support payment links from Stripe or PayPal. Use the buttons below to complete checkout.</p>
+                <div class="payment-grid">
+                    <a href="https://buy.stripe.com/YOUR_STRIPE_LINK" target="_blank" class="form-button">Pay with Stripe</a>
+                    <a href="https://www.paypal.com/paypalme/YOUR_PAYPAL" target="_blank" class="form-button">Pay with PayPal</a>
+                </div>
+                <div class="payment-info">
+                    <p style="color: #aaa; margin-bottom: 10px;">Tip: create payment links in your Stripe or PayPal business account and replace the placeholder URLs above.</p>
+                    <p style="color: #aaa;">If you want a full custom checkout experience, I can help add backend support using Node.js, Firebase Functions, or another service.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Goregaonkar Traders. All rights reserved. | Master The Market. Master Your Future.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature, class, testimonial, and enrollment cards
+        document.querySelectorAll('.feature-card, .class-card, .testimonial-card, .enrollment-box, .payment-box').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Fill selected class when a user clicks enroll on a class card
+        document.querySelectorAll('.class-card .enroll-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const card = this.closest('.class-card');
+                const className = card.querySelector('.class-name').textContent;
+                const selectedClassInput = document.getElementById('selectedClassInput');
+                const selectedClassText = document.querySelector('.selected-class');
+                selectedClassInput.value = className;
+                if (selectedClassText) {
+                    selectedClassText.textContent = className;
+                }
+                document.getElementById('enroll').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Prevent form submission until the user replaces placeholder form action
+        const enrollForm = document.getElementById('enroll-form');
+        enrollForm.addEventListener('submit', function(event) {
+            if (this.action.includes('YOUR_EMAIL') || this.action.includes('YOUR_FORM_ID')) {
+                event.preventDefault();
+                alert('Please replace the placeholder form action URL with your FormSubmit or Formspree endpoint before publishing.');
+            }
+        });
+
+        // CTA Button
+        document.querySelector('.cta-button').addEventListener('click', function() {
+            document.getElementById('classes').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
