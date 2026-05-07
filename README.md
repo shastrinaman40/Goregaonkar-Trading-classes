@@ -26,12 +26,9 @@ This repository contains the public website for Goregaonkar Traders, including:
 
 Replace `YOUR_EMAIL` with your email or your FormSubmit endpoint.
 
-2. Replace payment links with your actual payment URLs:
+2. Replace payment links with your actual payment URLs inside each class card in `index.html`.
 
-```html
-<a href="https://buy.stripe.com/YOUR_STRIPE_LINK" ...>Pay with Stripe</a>
-<a href="https://www.paypal.com/paypalme/YOUR_PAYPAL" ...>Pay with PayPal</a>
-```
+Each class card contains `data-stripe-link` and `data-paypal-link` placeholders. Update those values with your real Stripe Checkout or PayPal payment links.
 
 3. Optionally replace the hero and logo image URL with your own branding.
 

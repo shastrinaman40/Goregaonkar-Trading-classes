@@ -716,7 +716,7 @@
     <section class="classes" id="classes">
         <h2 class="section-title">Our Trading Classes</h2>
         <div class="classes-grid">
-            <div class="class-card">
+            <div class="class-card" data-price="₹5,999" data-stripe-link="https://buy.stripe.com/YOUR_STRIPE_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
                 <span class="class-level">BEGINNER</span>
                 <h3 class="class-name">Stock Basics</h3>
                 <p class="class-details">
@@ -727,7 +727,7 @@
                 <button class="enroll-btn">Enroll Now</button>
             </div>
 
-            <div class="class-card">
+            <div class="class-card" data-price="₹9,999" data-stripe-link="https://buy.stripe.com/YOUR_STRIPE_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
                 <span class="class-level">INTERMEDIATE</span>
                 <h3 class="class-name">Technical Analysis</h3>
                 <p class="class-details">
@@ -738,7 +738,7 @@
                 <button class="enroll-btn">Enroll Now</button>
             </div>
 
-            <div class="class-card">
+            <div class="class-card" data-price="₹15,999" data-stripe-link="https://buy.stripe.com/YOUR_STRIPE_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
                 <span class="class-level">ADVANCED</span>
                 <h3 class="class-name">Advanced Trading</h3>
                 <p class="class-details">
@@ -749,7 +749,7 @@
                 <button class="enroll-btn">Enroll Now</button>
             </div>
 
-            <div class="class-card">
+            <div class="class-card" data-price="₹25,999" data-stripe-link="https://buy.stripe.com/YOUR_STRIPE_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
                 <span class="class-level">PROFESSIONAL</span>
                 <h3 class="class-name">1-on-1 Mentorship</h3>
                 <p class="class-details">
@@ -860,14 +860,17 @@
             </div>
             <div class="payment-box">
                 <h3>Secure Payment Options</h3>
-                <p style="color: #ccc; margin-bottom: 20px;">We support payment links from Stripe or PayPal. Use the buttons below to complete checkout.</p>
-                <div class="payment-grid">
-                    <a href="https://buy.stripe.com/YOUR_STRIPE_LINK" target="_blank" class="form-button">Pay with Stripe</a>
-                    <a href="https://www.paypal.com/paypalme/YOUR_PAYPAL" target="_blank" class="form-button">Pay with PayPal</a>
-                </div>
+                <p style="color: #ccc; margin-bottom: 20px;">Choose a method below and then click Pay Now to open checkout for your selected class.</p>
+                <label for="paymentMethod" style="color: #ccc; display: block; margin-bottom: 10px;">Payment method</label>
+                <select id="paymentMethod" class="enroll-form" style="width:100%; max-width:320px; padding:14px 16px; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); color:#fff; margin-bottom:20px;">
+                    <option value="stripe">Stripe</option>
+                    <option value="paypal">PayPal</option>
+                </select>
+                <button id="paymentRedirectBtn" type="button" class="form-button">Pay Now</button>
+                <p id="paymentStatus" style="color: #aaa; margin-top: 20px; font-size: 14px; line-height: 1.6;">Select a class first by clicking any Enroll Now button.</p>
                 <div class="payment-info">
-                    <p style="color: #aaa; margin-bottom: 10px;">Tip: create payment links in your Stripe or PayPal business account and replace the placeholder URLs above.</p>
-                    <p style="color: #aaa;">If you want a full custom checkout experience, I can help add backend support using Node.js, Firebase Functions, or another service.</p>
+                    <p style="color: #aaa; margin-bottom: 10px;">Replace the placeholder links for each class below with your real Stripe or PayPal payment link.</p>
+                    <p style="color: #aaa;">Need help building payment links? I can guide you through Stripe Checkout and PayPal PayPal.Me setup.</p>
                 </div>
             </div>
         </div>
@@ -904,19 +907,58 @@
             observer.observe(el);
         });
 
-        // Fill selected class when a user clicks enroll on a class card
+        const selectedClassInput = document.getElementById('selectedClassInput');
+        const selectedClassText = document.querySelector('.selected-class');
+        const paymentMethodSelect = document.getElementById('paymentMethod');
+        const paymentRedirectBtn = document.getElementById('paymentRedirectBtn');
+        const paymentStatus = document.getElementById('paymentStatus');
+        let selectedClassCard = null;
+
+        function updatePaymentStatus() {
+            if (!selectedClassCard) {
+                paymentStatus.textContent = 'Select a class first by clicking any Enroll Now button.';
+                paymentRedirectBtn.disabled = true;
+                paymentRedirectBtn.style.opacity = '0.7';
+                return;
+            }
+
+            const className = selectedClassCard.querySelector('.class-name').textContent;
+            const price = selectedClassCard.dataset.price || 'price not set';
+            const method = paymentMethodSelect.value;
+            paymentStatus.textContent = `Selected class: ${className} (${price}) — ready for ${method === 'stripe' ? 'Stripe' : 'PayPal'} checkout.`;
+            paymentRedirectBtn.disabled = false;
+            paymentRedirectBtn.style.opacity = '1';
+        }
+
         document.querySelectorAll('.class-card .enroll-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                const card = this.closest('.class-card');
-                const className = card.querySelector('.class-name').textContent;
-                const selectedClassInput = document.getElementById('selectedClassInput');
-                const selectedClassText = document.querySelector('.selected-class');
+                selectedClassCard = this.closest('.class-card');
+                const className = selectedClassCard.querySelector('.class-name').textContent;
                 selectedClassInput.value = className;
                 if (selectedClassText) {
                     selectedClassText.textContent = className;
                 }
+                updatePaymentStatus();
                 document.getElementById('enroll').scrollIntoView({ behavior: 'smooth' });
             });
+        });
+
+        paymentMethodSelect.addEventListener('change', updatePaymentStatus);
+
+        paymentRedirectBtn.addEventListener('click', function() {
+            if (!selectedClassCard) {
+                alert('Please select a class first.');
+                return;
+            }
+
+            const method = paymentMethodSelect.value;
+            const link = selectedClassCard.dataset[method + 'Link'];
+            if (!link || link.includes('YOUR_STRIPE_LINK') || link.includes('YOUR_PAYPAL')) {
+                alert('Payment link for this class is not configured yet. Please update the placeholder link in the class card data attributes.');
+                return;
+            }
+
+            window.open(link, '_blank');
         });
 
         // Prevent form submission until the user replaces placeholder form action
