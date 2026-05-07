@@ -716,7 +716,7 @@
     <section class="classes" id="classes">
         <h2 class="section-title">Our Trading Classes</h2>
         <div class="classes-grid">
-            <div class="class-card" data-price="₹5,999" data-stripe-link="https://buy.stripe.com/YOUR_STRIPE_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
+            <div class="class-card" data-price="₹5,999" data-googlepay-link="https://pay.google.com/YOUR_GOOGLEPAY_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
                 <span class="class-level">BEGINNER</span>
                 <h3 class="class-name">Stock Basics</h3>
                 <p class="class-details">
@@ -727,7 +727,7 @@
                 <button class="enroll-btn">Enroll Now</button>
             </div>
 
-            <div class="class-card" data-price="₹9,999" data-stripe-link="https://buy.stripe.com/YOUR_STRIPE_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
+            <div class="class-card" data-price="₹9,999" data-googlepay-link="https://pay.google.com/YOUR_GOOGLEPAY_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
                 <span class="class-level">INTERMEDIATE</span>
                 <h3 class="class-name">Technical Analysis</h3>
                 <p class="class-details">
@@ -738,7 +738,7 @@
                 <button class="enroll-btn">Enroll Now</button>
             </div>
 
-            <div class="class-card" data-price="₹15,999" data-stripe-link="https://buy.stripe.com/YOUR_STRIPE_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
+            <div class="class-card" data-price="₹15,999" data-googlepay-link="https://pay.google.com/YOUR_GOOGLEPAY_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
                 <span class="class-level">ADVANCED</span>
                 <h3 class="class-name">Advanced Trading</h3>
                 <p class="class-details">
@@ -749,7 +749,7 @@
                 <button class="enroll-btn">Enroll Now</button>
             </div>
 
-            <div class="class-card" data-price="₹25,999" data-stripe-link="https://buy.stripe.com/YOUR_STRIPE_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
+            <div class="class-card" data-price="₹25,999" data-googlepay-link="https://pay.google.com/YOUR_GOOGLEPAY_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
                 <span class="class-level">PROFESSIONAL</span>
                 <h3 class="class-name">1-on-1 Mentorship</h3>
                 <p class="class-details">
@@ -863,14 +863,14 @@
                 <p style="color: #ccc; margin-bottom: 20px;">Choose a method below and then click Pay Now to open checkout for your selected class.</p>
                 <label for="paymentMethod" style="color: #ccc; display: block; margin-bottom: 10px;">Payment method</label>
                 <select id="paymentMethod" class="enroll-form" style="width:100%; max-width:320px; padding:14px 16px; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); color:#fff; margin-bottom:20px;">
-                    <option value="stripe">Stripe</option>
+                    <option value="googlepay">Google Pay</option>
                     <option value="paypal">PayPal</option>
                 </select>
                 <button id="paymentRedirectBtn" type="button" class="form-button">Pay Now</button>
                 <p id="paymentStatus" style="color: #aaa; margin-top: 20px; font-size: 14px; line-height: 1.6;">Select a class first by clicking any Enroll Now button.</p>
                 <div class="payment-info">
-                    <p style="color: #aaa; margin-bottom: 10px;">Replace the placeholder links for each class below with your real Stripe or PayPal payment link.</p>
-                    <p style="color: #aaa;">Need help building payment links? I can guide you through Stripe Checkout and PayPal PayPal.Me setup.</p>
+                    <p style="color: #aaa; margin-bottom: 10px;">Replace the placeholder links for each class below with your real Google Pay or PayPal payment link.</p>
+                    <p style="color: #aaa;">Need help building payment links? I can guide you through Google Pay and PayPal setup.</p>
                 </div>
             </div>
         </div>
@@ -925,7 +925,7 @@
             const className = selectedClassCard.querySelector('.class-name').textContent;
             const price = selectedClassCard.dataset.price || 'price not set';
             const method = paymentMethodSelect.value;
-            paymentStatus.textContent = `Selected class: ${className} (${price}) — ready for ${method === 'stripe' ? 'Stripe' : 'PayPal'} checkout.`;
+            paymentStatus.textContent = `Selected class: ${className} (${price}) — ready for ${method === 'googlepay' ? 'Google Pay' : 'PayPal'} checkout.`;
             paymentRedirectBtn.disabled = false;
             paymentRedirectBtn.style.opacity = '1';
         }
@@ -953,7 +953,7 @@
 
             const method = paymentMethodSelect.value;
             const link = selectedClassCard.dataset[method + 'Link'];
-            if (!link || link.includes('YOUR_STRIPE_LINK') || link.includes('YOUR_PAYPAL')) {
+            if (!link || link.includes('YOUR_GOOGLEPAY_LINK') || link.includes('YOUR_PAYPAL')) {
                 alert('Payment link for this class is not configured yet. Please update the placeholder link in the class card data attributes.');
                 return;
             }

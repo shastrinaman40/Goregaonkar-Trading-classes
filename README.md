@@ -14,7 +14,7 @@ This repository contains the public website for Goregaonkar Traders, including:
 - Testimonials
 - Contact information
 - Enrollment form section
-- Payment buttons for Stripe / PayPal
+- Payment buttons for Google Pay / PayPal
 
 ## Setup before publishing
 
@@ -28,7 +28,7 @@ Replace `YOUR_EMAIL` with your email or your FormSubmit endpoint.
 
 2. Replace payment links with your actual payment URLs inside each class card in `index.html`.
 
-Each class card contains `data-stripe-link` and `data-paypal-link` placeholders. Update those values with your real Stripe Checkout or PayPal payment links.
+Each class card contains `data-googlepay-link` and `data-paypal-link` placeholders. Update those values with your real Google Pay or PayPal payment links.
 
 3. Optionally replace the hero and logo image URL with your own branding.
 
