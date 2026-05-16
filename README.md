@@ -141,3 +141,42 @@ git push -u origin main
 - This is a static site. Payment buttons use links, which is compatible with GitHub Pages.
 - For a fully custom checkout flow, add a backend service or use a payment provider that supports hosted payment links.
 
+## Deploying the Node backend (Render / Heroku)
+
+This repository includes a small Node.js backend (`server.js`) to store enrollment submissions and send notification emails. GitHub Pages cannot run this backend — choose one of the providers below to host it.
+
+Required environment variables (set these in the host's dashboard):
+- `ADMIN_TOKEN` — a secret token used to secure the `/submissions` endpoint.
+- `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USER`, `EMAIL_PASS` — SMTP settings for notification emails.
+- `EMAIL_TO` — email address where new enrollment notifications are sent.
+
+Heroku (quick):
+
+```bash
+heroku create YOUR_APP_NAME
+git push heroku main
+heroku config:set ADMIN_TOKEN="your_admin_token" EMAIL_HOST="smtp.example.com" EMAIL_USER="user" EMAIL_PASS="pass" EMAIL_TO="you@example.com"
+```
+
+Ensure your `Procfile` (included) is present — it contains `web: node server.js`.
+
+Render (recommended / IaC support):
+
+1. Create a new Web Service in Render and connect the repository. Use `npm install` as the build command and `npm start` as the start command.
+2. Or use the included `render.yaml` to create the service via Render's dashboard/import or the Render Team CLI.
+3. Add the environment variables listed above in Render's dashboard.
+
+After you have a running backend, create a `config.json` at the repo root (or update `config.example.json`) with your backend URL so the static site posts to it. Example `config.json`:
+
+```json
+{
+	"backend_url": "https://your-backend.onrender.com"
+}
+```
+
+Commit and push the `config.json` (it's safe to include the public backend URL) and then re-deploy or push to the branch used by GitHub Pages. The site will then POST to the deployed backend's `/enroll` endpoint.
+
+If you'd like, I can:
+- create step-by-step commands to deploy to Render for you, or
+- prepare a serverless conversion for Vercel (requires restructuring `server.js` into API functions).
+

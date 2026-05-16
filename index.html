@@ -844,7 +844,7 @@
                 <h3>Complete Your Enrollment</h3>
                 <p style="color: #ccc; margin-bottom: 20px;">Fill the form below and choose a payment method to confirm your seat.</p>
                 <p class="selected-class-text">Selected Class: <span class="selected-class">None</span></p>
-                <form id="enroll-form" class="enroll-form" action="/enroll" method="POST">
+                <form id="enroll-form" class="enroll-form" action="#" method="POST">
                     <input type="hidden" name="selected_class" id="selectedClassInput" value="">
                     <label for="studentName">Name</label>
                     <input type="text" id="studentName" name="name" placeholder="Your full name" required>
@@ -883,6 +883,23 @@
     </footer>
 
     <script>
+        // Load runtime config for backend URL (create a config.json with {"backend_url":"https://..."})
+        (function(){
+            const enrollForm = document.getElementById('enroll-form');
+            fetch('/config.json').then(res => {
+                if (!res.ok) throw new Error('no config');
+                return res.json();
+            }).then(cfg => {
+                if (cfg && cfg.backend_url) {
+                    const backend = cfg.backend_url.replace(/\/$/, '');
+                    enrollForm.action = backend + '/enroll';
+                }
+            }).catch(() => {
+                // fallback to relative path (works when backend is hosted on same origin)
+                enrollForm.action = '/enroll';
+            });
+        })();
+
         // Scroll to top on page load to prevent automatic scrolling to hash
         window.addEventListener('load', function() {
             window.scrollTo(0, 0);

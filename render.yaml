@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: goregaonkar-traders-backend
+    env: node
+    plan: free
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: ADMIN_TOKEN
+        value: "REPLACE_ME"
+      - key: EMAIL_HOST
+        value: "REPLACE_ME"
+      - key: EMAIL_PORT
+        value: "587"
+      - key: EMAIL_USER
+        value: "REPLACE_ME"
+      - key: EMAIL_PASS
+        value: "REPLACE_ME"
+      - key: EMAIL_TO
+        value: "REPLACE_ME"
