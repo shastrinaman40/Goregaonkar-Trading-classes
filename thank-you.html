@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Goregaonkar Traders</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #0f0f0f 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .thank-you-container {
+            max-width: 600px;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .thank-you-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .thank-you-title {
+            font-size: 48px;
+            color: #00ff88;
+            margin-bottom: 20px;
+        }
+
+        .thank-you-message {
+            font-size: 18px;
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .next-steps {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 4px solid #00ff88;
+        }
+
+        .next-steps h3 {
+            color: #00ff88;
+            margin-bottom: 15px;
+        }
+
+        .next-steps ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .next-steps li {
+            color: #aaa;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .next-steps li::before {
+            content: '✓';
+            color: #00ff88;
+            position: absolute;
+            left: 0;
+        }
+
+        .back-home-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .back-home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="thank-you-container">
+        <div class="thank-you-icon">🎉</div>
+        <h1 class="thank-you-title">Thank You!</h1>
+        <p class="thank-you-message">
+            Your enrollment request has been submitted successfully. We've received your information and will contact you within 24 hours to confirm your enrollment and provide next steps.
+        </p>
+
+        <div class="next-steps">
+            <h3>What happens next?</h3>
+            <ul>
+                <li>Our team will review your application</li>
+                <li>You'll receive a confirmation email with payment instructions</li>
+                <li>Once payment is confirmed, you'll get access to course materials</li>
+                <li>Class schedule and login details will be shared</li>
+            </ul>
+        </div>
+
+        <a href="index.html" class="back-home-btn">Back to Home</a>
+    </div>
+</body>
+</html>

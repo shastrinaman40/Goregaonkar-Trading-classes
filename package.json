@@ -1,0 +1,14 @@
+{
+  "name": "goregaonkar-traders-site",
+  "version": "1.0.0",
+  "description": "Goregaonkar Traders landing page with Node.js backend for enrollment submissions.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.4"
+  }
+}

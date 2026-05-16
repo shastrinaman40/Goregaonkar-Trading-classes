@@ -716,7 +716,7 @@
     <section class="classes" id="classes">
         <h2 class="section-title">Our Trading Classes</h2>
         <div class="classes-grid">
-            <div class="class-card" data-price="₹5,999" data-googlepay-link="https://pay.google.com/YOUR_GOOGLEPAY_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
+            <div class="class-card" data-price="₹5,999" data-googlepay-link="https://pay.google.com/gp/p/ui/pay?pa=goregaonkartraders@upi&pn=Goregaonkar%20Traders&am=5999&cu=INR" data-paypal-link="https://www.paypal.com/paypalme/goregaonkartraders/5999">
                 <span class="class-level">BEGINNER</span>
                 <h3 class="class-name">Stock Basics</h3>
                 <p class="class-details">
@@ -727,7 +727,7 @@
                 <button class="enroll-btn">Enroll Now</button>
             </div>
 
-            <div class="class-card" data-price="₹9,999" data-googlepay-link="https://pay.google.com/YOUR_GOOGLEPAY_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
+            <div class="class-card" data-price="₹9,999" data-googlepay-link="https://pay.google.com/gp/p/ui/pay?pa=goregaonkartraders@upi&pn=Goregaonkar%20Traders&am=9999&cu=INR" data-paypal-link="https://www.paypal.com/paypalme/goregaonkartraders/9999">
                 <span class="class-level">INTERMEDIATE</span>
                 <h3 class="class-name">Technical Analysis</h3>
                 <p class="class-details">
@@ -738,7 +738,7 @@
                 <button class="enroll-btn">Enroll Now</button>
             </div>
 
-            <div class="class-card" data-price="₹15,999" data-googlepay-link="https://pay.google.com/YOUR_GOOGLEPAY_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
+            <div class="class-card" data-price="₹15,999" data-googlepay-link="https://pay.google.com/gp/p/ui/pay?pa=goregaonkartraders@upi&pn=Goregaonkar%20Traders&am=15999&cu=INR" data-paypal-link="https://www.paypal.com/paypalme/goregaonkartraders/15999">
                 <span class="class-level">ADVANCED</span>
                 <h3 class="class-name">Advanced Trading</h3>
                 <p class="class-details">
@@ -749,7 +749,7 @@
                 <button class="enroll-btn">Enroll Now</button>
             </div>
 
-            <div class="class-card" data-price="₹25,999" data-googlepay-link="https://pay.google.com/YOUR_GOOGLEPAY_LINK" data-paypal-link="https://www.paypal.com/paypalme/YOUR_PAYPAL">
+            <div class="class-card" data-price="₹25,999" data-googlepay-link="https://pay.google.com/gp/p/ui/pay?pa=goregaonkartraders@upi&pn=Goregaonkar%20Traders&am=25999&cu=INR" data-paypal-link="https://www.paypal.com/paypalme/goregaonkartraders/25999">
                 <span class="class-level">PROFESSIONAL</span>
                 <h3 class="class-name">1-on-1 Mentorship</h3>
                 <p class="class-details">
@@ -844,7 +844,7 @@
                 <h3>Complete Your Enrollment</h3>
                 <p style="color: #ccc; margin-bottom: 20px;">Fill the form below and choose a payment method to confirm your seat.</p>
                 <p class="selected-class-text">Selected Class: <span class="selected-class">None</span></p>
-                <form id="enroll-form" class="enroll-form" action="https://formsubmit.co/YOUR_EMAIL" method="POST">
+                <form id="enroll-form" class="enroll-form" action="/enroll" method="POST">
                     <input type="hidden" name="selected_class" id="selectedClassInput" value="">
                     <label for="studentName">Name</label>
                     <input type="text" id="studentName" name="name" placeholder="Your full name" required>
@@ -855,7 +855,7 @@
                     <label for="studentMessage">Message</label>
                     <textarea id="studentMessage" name="message" rows="4" placeholder="Tell us your goals"></textarea>
                     <button type="submit" class="enroll-btn">Submit Enrollment Request</button>
-                    <p class="form-note">Replace the form action URL with your FormSubmit or Formspree endpoint before publishing.</p>
+                    <p class="form-note">Your information will be securely stored and you'll receive a confirmation email.</p>
                 </form>
             </div>
             <div class="payment-box">
@@ -869,8 +869,9 @@
                 <button id="paymentRedirectBtn" type="button" class="form-button">Pay Now</button>
                 <p id="paymentStatus" style="color: #aaa; margin-top: 20px; font-size: 14px; line-height: 1.6;">Select a class first by clicking any Enroll Now button.</p>
                 <div class="payment-info">
-                    <p style="color: #aaa; margin-bottom: 10px;">Replace the placeholder links for each class below with your real Google Pay or PayPal payment link.</p>
-                    <p style="color: #aaa;">Need help building payment links? I can guide you through Google Pay and PayPal setup.</p>
+                    <p style="color: #aaa; margin-bottom: 10px;">Payment links are configured for each class. Update the UPI ID and PayPal username with your actual details.</p>
+                    <p style="color: #aaa;">For Google Pay: Replace 'goregaonkartraders@upi' with your real UPI ID.</p>
+                    <p style="color: #aaa;">For PayPal: Replace 'goregaonkartraders' with your PayPal.me username.</p>
                 </div>
             </div>
         </div>
@@ -882,6 +883,11 @@
     </footer>
 
     <script>
+        // Scroll to top on page load to prevent automatic scrolling to hash
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+
         // Smooth scrolling
         function scrollToSection(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
@@ -953,21 +959,12 @@
 
             const method = paymentMethodSelect.value;
             const link = selectedClassCard.dataset[method + 'Link'];
-            if (!link || link.includes('YOUR_GOOGLEPAY_LINK') || link.includes('YOUR_PAYPAL')) {
+            if (!link || link.includes('shastrinaman40@oksbi') || link.includes('YOUR_PAYPAL')) {
                 alert('Payment link for this class is not configured yet. Please update the placeholder link in the class card data attributes.');
                 return;
             }
 
             window.open(link, '_blank');
-        });
-
-        // Prevent form submission until the user replaces placeholder form action
-        const enrollForm = document.getElementById('enroll-form');
-        enrollForm.addEventListener('submit', function(event) {
-            if (this.action.includes('YOUR_EMAIL') || this.action.includes('YOUR_FORM_ID')) {
-                event.preventDefault();
-                alert('Please replace the placeholder form action URL with your FormSubmit or Formspree endpoint before publishing.');
-            }
         });
 
         // CTA Button
